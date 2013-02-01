@@ -1,3 +1,4 @@
+/*lisshouyan push test*/
 (function($) {
 
 	if($.fn.iTip) {
