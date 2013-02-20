@@ -1,0 +1,11 @@
+/* lishouyan@me.com dirt-lift.net */
+
+.i-dialog {
+	position:absolute;
+	padding:5px;
+	width:200px;
+	background: #fff;
+	border:3px solid #ccc;
+	border-radius:3px;
+	z-index:999999
+}

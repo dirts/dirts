@@ -7,6 +7,7 @@
 
 	var $win = $(win);
 
+
 	$.icard = function(settings) {
 
 		var html = [
@@ -29,7 +30,7 @@
 
 		var opts = $.extend(defaults, settings);
 
-		var $this = $(html).attr('style', 'background:#fff;border:1px solid #ccc;position:absolute;width:200px;height100px;z-index:999999');
+		var $this = $(html)//.attr('style', 'background:#fff;border:1px solid #ccc;position:absolute;width:200px;height100px;z-index:999999');
 
 		//method : content
 		$this.content = function(html) {
@@ -64,6 +65,7 @@
 			if(!$this.is(':visible')){
 				return;
 			}
+			
 			var re = $this.getRects();
 
 			var width = re.width,
@@ -162,6 +164,8 @@
 }(jQuery));
 
 
+(function($){
+
 
 $(function(){
 
@@ -185,3 +189,6 @@ $(function(){
 	})
 
 });
+
+
+}(jQuery));
