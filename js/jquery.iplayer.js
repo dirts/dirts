@@ -107,7 +107,7 @@
 	}
 
 	$('.audio-tag').iplayer({ 
-		'list': [{ 'title': '爱情' , 'singer' : '田馥甄' , 'url': 'test.mp3' }]
+		'list': [{ 'title': '爱情' , 'singer' : '田馥甄' , 'url': 'http://zhangmenshiting.baidu.com/data2/music/5974545/5974547212400192.mp3?xcode=cd5944912b8eee47f06bb9a0a84b63a8' }]
 	});
 
 	$('.jquery-player-title').bind('mouseover',function(){
