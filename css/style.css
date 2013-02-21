@@ -1,0 +1,62 @@
+	body, div, ul, li{margin:0px;padding:0px;}
+
+	body{
+		background: url(../images/bg_tile.jpg) repeat;
+	}
+
+	.header-wrap {
+		border-bottom: 1px solid #c3c3c3;
+		background:#f3f3f3;
+		height:20px;
+		padding:20px;
+	}
+
+	/* face */
+	.close-btn{
+		
+		float: right;
+		padding:1px;
+		background:#eee;
+		height:64px;
+		width:64px;
+		border:1px solid #ccc;
+		border-radius: 1px;
+		/*box-shadow: 1px 1px 1px #666;*/
+	}
+
+	.close-btn img {
+		-webkit-filter:grayscale(100%);
+	}
+	.close-btn:hover img {
+		-webkit-filter:brightness(.3) grayscale(0%) contrast(2);
+	}
+
+	.close-btn:hover{
+		border:1px solid #9c0;
+		/* -webkit-transform: scale(1.1); */
+	}
+
+	.close-btn,.close-btn img {
+		-webkit-transition: all s ease-in-out;
+	}
+
+	.close-btn a{
+
+	}
+
+
+	.shadow-item {
+		height:5px;
+		background: -webkit-gradient(linear,left top,left bottom,from(rgba(0,0,0,.2)),to(rgba(0,0,0,0)));
+	}
+
+	.clearfix {
+
+	}
+	.clearfix:after{
+		content: '';
+		background:#f00;
+		height:5px;
+		width:5px;
+		float: none;
+	}

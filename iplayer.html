@@ -3,88 +3,19 @@
 <head>
 	<meta charset="UTF-8">
 	<title></title>
-	<style type="text/css">
-	body ,div {margin:0px;padding:0px;}
-	.wrap {
-		background:#ddd;
-		padding:20px;
-	}
-	.jquery-player {
-		float:left;
-		background:#f0f0f0;
-		display:inline-block;
-		width: 200px;
-		padding:1px 3px;
-		border-radius: 3px;
-		box-shadow: 1px 1px 1px #bbb;
-	}
-	.jquery-player-btn {
-		float:left;
-		overflow:hidden;
-		height:10px;
-		width:10px;
-		border-radius: 5px;
-		text-indent: -999px;
-		margin:3px;
-		cursor: pointer;
-	}
-	.jquery-player-title{
-		float: left;
-		background:#eaeaea;
-		font-size: 8px;
-		line-height: 10px;
-		color: #999;
-		font-weight: 100;
-		margin: 3px;
-		height: 10px;
-		padding: 2px 5px;
-		margin: 1px 5px;
-		overflow: hidden;
-	}
-	.jquery-player-play {
-		background: url(data:image/png;base64,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)
-
-	}
-	.jquery-player-pause {
-
-	}
-	.jquery-player-timer{
-		float: left;
-		background:#ccc;
-		height:1px;
-		overflow: hidden;
-		width:200px;
-	}
-	.jquery-current-timer{
-		height:10px;
-		width:0px;
-		background:#8fa93e;
-	}
-	.close-btn{
-		float: right;
-		background:#eee;
-		height:20px;
-		width:20px;
-		border:1px solid #ccc;
-	}
-
-	.clearfix {
-
-	}
-	.clearfix:after{
-		content: '';
-		background:#f00;
-		height:5px;
-		width:5px;
-		float: none;
-	}
-	</style>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="js/css/iplayer.css">
 	<link rel="stylesheet" type="text/css" href="js/css/icard.css">
 </head>
 <body>
-	<div class="wrap clearfix">
+	<div class="header-wrap clearfix">
+		<div class="close-btn">
+			<img src="http://0.gravatar.com/avatar/6e35c3dd6f1386febbbd2aebba3e3f30?s=64&d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&r=G" />
+		</div>
+	</div>
+	<div class="shadow-item"></div>
+	<div class="container-wrap">
 		<div class="audio-tag"></div>
-		<div class="close-btn"><img src="http://0.gravatar.com/avatar/6e35c3dd6f1386febbbd2aebba3e3f30?s=64&d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&r=G" /></div>
 	</div>
 	<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
 	<script type="text/javascript" src="js/jquery.idialog.js"></script>
