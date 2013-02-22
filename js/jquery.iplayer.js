@@ -1,3 +1,44 @@
+/* $.fn.alignCenter */
+;(function($,log){
+
+	if($.fn.fixedCenter){
+		return;
+	}
+
+
+	var $win = $(window)
+	var MathRound = Math.round;
+
+	$.fn.fixedCenter = function(){
+		if($(this).length ==0) return;
+
+		var $this = $(this);
+		
+		var viewport_width = $win.width(),
+			viewport_height = $win.height();
+
+		$this.each(function(){
+
+			var $this = $(this).css({'position':'fixed'});
+
+			var width = $this.width(),
+				height = $this.height();
+
+			var offset = {
+				'left' : MathRound((viewport_width - width)/2),
+				'top' : MathRound((viewport_height - height)/2)
+			};
+				
+			$this.css(offset);
+
+		});
+
+		return $this;
+
+	}
+
+}(jQuery,function(msg){window.console && window.console.log(msg)}));
+
 ;(function($){
 
 	var list = [
@@ -25,8 +66,6 @@
 			'</div>'
 		].join('');
 
-
-
 	}
 
 	if($.fn.iplayer){
@@ -50,6 +89,7 @@
 					'<div class="jquery-player-title"></div>',
 					'<div class="jquery-player-timer">',
 						'<div class="jquery-current-timer"></div>',
+						'<div class="jquery-progress-timer"></div>',
 					'</div>',
 				'</div>',
 				'<audio></audio>',
@@ -60,44 +100,67 @@
 
 			$(this).addClass('jquery-player').prepend(tmpl)
 
-			var media = $('audio,video',this).get(0);
+			var $media = $('audio,video',this),
+				media =$media.get(0);
 			var $play = $('.jquery-player-play',this),
 				$pause = $('.jquery-player-pause',this),
 				$title = $('.jquery-player-title',this);
 
 			if(settings.list && settings.list.length){
 				media.src = opts.list[0].url;
-				$title.html(opts.list[0].title + ' - ' + opts.list[0].singer );
+				$title.text(opts.list[0].title + ' - ' + opts.list[0].singer);
 			}
 
 			if(!media.src){
 				return;
 			}
 
+			$media
+				.bind('canplay',function(){
+					console.log('canplay event')
+				})
+				.bind('loadeddata',function(){
+					console.log('load')
+				})
+				.bind('durationchange',function(){
+					console.log('durationchange');
+				})
+				.bind('progpress',function(){
+					console.log('progpress')
+				})
+
+			media.addEventListener('timeupdate', function(){
+				timer()
+			}, false);
+
+			media.addEventListener('progress', function(){
+				progress();
+			}, false);
+
+			function addEvents(target, type, fn){
+				target.addEventListener(type,fn,false);
+			}
+			
 			$play.bind('click',function(){
 				media.play();
-				media.volume = 0.3;
-				timer();
 			});
 
 			$pause.bind('click',function(){
 				media.pause();
 			});
 
-			var width = $('.jquery-player-timer').width();
-			var $cur = $('.jquery-current-timer',this);
-
+			var timerbar_width = $('.jquery-player-timer').width();
+			var $timerbar = $('.jquery-current-timer',this);
+			var $progress = $('.jquery-progress-timer',this);
 
 			function timer(){
+				var precent =  ((media.currentTime / media.duration) * 100) + '%';
+				$timerbar.css('width',precent);
+			}
 
-				timer.id = setInterval(function(){
-					if(media.pasued){
-						clearInterval(timer.id);
-					}
-					var cur =  (media.currentTime / media.duration * width);
-					$cur.css('width',cur);
-				},200);
-
+			function progress(){
+				var precent =  ((media.buffered.end(0) / media.duration) * 100) + '%';
+				$progress.css('width',precent);
 			}
 		
 
@@ -105,13 +168,6 @@
 
 		return $this;
 	}
-
-	$('.audio-tag').iplayer({ 
-		'list': [{ 'title': '爱情' , 'singer' : '田馥甄' , 'url': 'http://zhangmenshiting.baidu.com/data2/music/5974545/5974547212400192.mp3?xcode=cd5944912b8eee47f06bb9a0a84b63a8' }]
-	});
-
-	$('.jquery-player-title').bind('mouseover',function(){
-		$(this).icard();
-	})
-
 }(jQuery));
+
+

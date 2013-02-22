@@ -5,32 +5,33 @@
 		return;
 	}
 
-	var $win = $(win);
+	var $win = $(win), $body = $('body');
 
 
 	$.icard = function(settings) {
 
-		var html = [
-			'<div class="i-dialog tip-card">', 
-				'<div class="i-dialog-arrow"></div>',
-				'<div class="i-dialog-title clearfix">', 
-					'<span>{%title%}</span><div class="i-dialog-close"></div>', 
-				'</div>', 
-				'<div class="i-dialog-content">{%content%}</div>', 
-				'</div>'
-			].join('');
-
 		var defaults = {
-			'targets':null,
+			'align':null,
 			'title': '标题',
 			'content': '内容',
 			'mask': true,
 			'drag': false
 		}
-
 		var opts = $.extend(defaults, settings);
 
+		var html = [
+			'<div class="i-dialog-wrap ', opts['class'] ,'" style="display:none">', 
+				'<div class="i-dialog-arrow">◆</div>',
+				'<div class="i-dialog-title clearfix">', 
+					'<span>',opts['title'],'</span><div class="i-dialog-close">x</div>', 
+				'</div>', 
+				'<div class="i-dialog-content">', opts['content'] ,'</div>', 
+			'</div>'
+			].join('');
+
 		var $this = $(html)//.attr('style', 'background:#fff;border:1px solid #ccc;position:absolute;width:200px;height100px;z-index:999999');
+
+		var $arrow = $this.find('.i-dialog-arrow');
 
 		//method : content
 		$this.content = function(html) {
@@ -43,7 +44,6 @@
 			var Rects = null;
 			
 			targets = targets ? targets[0] : $this[0];
-			//debugger
 			if(e){
 				
 				var targetsx = e.clientX;
@@ -60,47 +60,65 @@
 			}
 		}
 
+
+		//对齐大概有几种对齐：
+		//1.左右垂直居中对齐
+		//2.对齐某个元素
 		$this.align = function($targets,e) {
 
-			if(!$this.is(':visible')){
-				return;
+			//$this is $tips
+			if(!$this.is(':visible')) return;
+	
+			var $tipRect = $this.getRects();
+
+			var width = $tipRect.width,
+				height = $tipRect.height;
+
+			var viewport = {
+				'height' : $win.height(),
+				'width' : $win.width()
 			}
-			
-			var re = $this.getRects();
-
-			var width = re.width,
-				height = re.height;
-
-			var viewport_h = $win.height(),
-				viewport_w = $win.width();
 
 			var offset = {};
-			var rects = {};
+			var $targetRects = {};
 
 			if($targets){
 
-				rects = $this.getRects($targets,e);
+				$targetRects = $this.getRects($targets,e);
 
-				if((viewport_h - rects.bottom) >= rects.top){
-					offset.left = rects.left + parseInt(rects.width/2);
-					offset.top =  rects.top + $win.scrollTop() + rects.height ;
+				var $arrow_pos_left = parseInt( $arrow.position().left + $arrow.width()/2 );
+
+				offset.left = $targetRects.left + parseInt($targetRects.width/2) - $arrow_pos_left;
+
+				if(offset.left + width > viewport.width){
+					offset.left = viewport.width - width;
+				}
+
+
+
+				if((viewport.height - $targetRects.bottom) >= $targetRects.top){
+					// if offset is bottom more .
+					offset.top =  $targetRects.top + $win.scrollTop() + $targetRects.height + ( $arrow.height() / 2 ) ;
+					$arrow.css({'top': -($arrow.height() / 2), 'bottom' : ''});
+
 				}else{
-					offset.left = rects.left + parseInt(rects.width/2);
-					offset.top =  rects.top + $win.scrollTop() - height ;
+					// if offset is top more.
+					offset.top =  $targetRects.top + $win.scrollTop() - height - ( $arrow.height() / 2 );
+					$arrow.css({'top': '' ,'bottom': -($arrow.height() / 2)});
+				
 				}
 
 			}else{
 
-				offset.left = parseInt( (viewport_w - width)/2 );
-				offset.top = parseInt( (viewport_h - height)/2 );
+				offset.left = parseInt( (viewport.width - width)/2 );
+				offset.top = parseInt( (viewport.height - height)/2 );
 			}
 
-			this.css(offset);
+			$this.css(offset);
 			
 			return this;
 		}
 
-		//method : content
 		$this.close = function() {
 			$this.hide();
 		}
@@ -113,14 +131,17 @@
 			//$this.align();
 		});
 
-		$('body').prepend($this);
+		$body.prepend($this);
 
-		if(opts.targets){
-			$this.align(opts.targets);
+		return $this;
+
+		/*
+		if(opts.align){
+			$this.align(opts.align);
 		}else{
 			$this.align();
 		}
-
+		*/
 		return $this;
 	}
 
@@ -136,8 +157,7 @@
 	}
 
 	$.fn.icard = function(settings) {
-		
-
+	
 		var $this = this;
 		var defaults = {};
 		var opts = $.extend(defaults, settings);
@@ -163,32 +183,3 @@
 	}
 }(jQuery));
 
-
-(function($){
-
-
-$(function(){
-
-	$(document).on('mouseenter','a[action-type="user-card"]',function(){
-
-		var $this = $(this);
-
-		if($this.data('card')){
-			return;
-		}
-
-		$this.icard({
-			targets: $(this),
-			className: "tip-card",
-			content: '测试数据',
-			width: 352
-		});
-
-		var $card = $this.data('card');
-		$card.content($this.find('img').clone())
-	})
-
-});
-
-
-}(jQuery));
