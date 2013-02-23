@@ -84,8 +84,8 @@
 
 		var tmpl = [
 				'<div class="jquery-player-controls ',opts['class'],'">',
-					'<div class="jquery-player-play jquery-player-btn" title="播放">play</div>',
-					'<div class="jquery-player-pause jquery-player-btn" title="暂停">pause</div>',
+					'<div class="jquery-player-play jquery-player-btn">play</div>',
+					'<div class="jquery-player-pause jquery-player-btn">pause</div>',
 					'<div class="jquery-player-title"></div>',
 					'<div class="jquery-player-timer">',
 						'<div class="jquery-current-timer"></div>',

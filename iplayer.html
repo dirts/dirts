@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="stylesheet" type="text/css" href="js/css/iplayer.css">
 	<link rel="stylesheet" type="text/css" href="js/css/icard.css">
@@ -48,14 +49,17 @@
 		//$mp3.fixedCenter();
 	});
 
-	var $title = $mp3.find('.jquery-player-title');
-	$title.icard({	'class':'i-simple-tips', 'content':'爱情-田馥甄' });
 
 	var $user = $('.close-btn');
 	$user.icard({'class':'i-simple-tips','content':'电动小达达' });
 
 	var $sitename = $('.site-name');
-	$sitename.icard({'class':'i-white filter-drop-shadow','content':'iPlayer : Take web mp3 player simple!'})
+	$sitename.icard({'class':'i-white filter-drop-shadow','content':'iPlayer : Take web mp3 player simple!'});
+
+
+	$('.jquery-player-title').icard({'class':'i-simple-tips', 'content':'爱情-田馥甄' });
+	$('.jquery-player-play').icard({'class':'i-simple-tips','content':'播放' });
+	$('.jquery-player-pause').icard({'class':'i-simple-tips','content':'暂停' });
 
 
 }(jQuery));
