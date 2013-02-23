@@ -83,7 +83,7 @@
 
 
 		var tmpl = [
-				'<div class="jquery-player-controls">',
+				'<div class="jquery-player-controls ',opts['class'],'">',
 					'<div class="jquery-player-play jquery-player-btn" title="播放">play</div>',
 					'<div class="jquery-player-pause jquery-player-btn" title="暂停">pause</div>',
 					'<div class="jquery-player-title"></div>',
@@ -98,7 +98,7 @@
 
 		$this.each(function(){
 
-			$(this).addClass('jquery-player').prepend(tmpl)
+			$(this).prepend(tmpl)
 
 			var $media = $('audio,video',this),
 				media =$media.get(0);
