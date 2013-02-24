@@ -20,15 +20,34 @@
 	<div class="shadow-item"></div>
 	<div class="container-wrap">
 		<!--<div class="audio-tag"></div>-->
-		<div class="mobile-tag"></div>
+		<div id="phototype">
+			<ul class="viewer">
+				<li>
+					<div class="mobile-tag"></div>
+				</li>
+				<li></li>
+			</ul>
+			<ul class="ctrllor">
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+		
 	</div>
 	<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+	<script type="text/javascript" src="js/phototype.js"></script>
 	<script type="text/javascript" src="js/jquery.idialog.js"></script>
 	<script type="text/javascript" src="js/jquery.iplayer.js"></script>
 	<script type="text/javascript">
 
 	/* iplayer demo */
-(function($){
+(function($, iPhoto){
+
+	iPhoto.news({
+		'id' : 'phototype',
+		'pattern' : 'left'
+	});
+
 	var $mp3 = $('.audio-tag');
 	var $mobile = $('.mobile-tag');
 
@@ -63,7 +82,7 @@
 	$('.jquery-player-pause').icard({'class':'i-simple-tips','content':'暂停' });
 
 
-}(jQuery));
+}(jQuery,Phototype));
 
 	</script>
 </body>
