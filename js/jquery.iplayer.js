@@ -159,8 +159,11 @@
 			}
 
 			function progress(){
-				var precent = media.buffered && ((media.buffered.end(0) / media.duration) * 100) + '%';
+				//if(media.buffered.length) {
+				var precent = media.buffered.length && ((media.buffered.end(0) / media.duration) * 100) + '%';
 				$progress.css('width',precent);
+				//}
+				
 			}
 		
 
