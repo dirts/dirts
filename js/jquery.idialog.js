@@ -71,8 +71,8 @@
 	
 			var $tipRect = $this.getRects();
 
-			var width = $tipRect.width,
-				height = $tipRect.height;
+			var width = $tipRect.right - $tipRect.left,
+				height = $tipRect.bottom - $tipRect.top;
 
 			var viewport = {
 				'height' : $win.height(),
@@ -88,13 +88,12 @@
 
 				var $arrow_pos_left = parseInt( $arrow.position().left + $arrow.width()/2 );
 
-				offset.left = $targetRects.left + parseInt($targetRects.width/2) - $arrow_pos_left;
+				offset.left = $targetRects.left + parseInt(($targetRects.right - $targetRects.left)/2) - $arrow_pos_left;
 
 				if(offset.left + width > viewport.width){
 					offset.left = viewport.width - width;
+					$arrow.css({'left':$targetRects.left + parseInt(($targetRects.right - $targetRects.left)/2) - offset.left - $arrow.width() / 2});
 				}
-
-
 
 				if((viewport.height - $targetRects.bottom) >= $targetRects.top){
 					// if offset is bottom more .

@@ -150,8 +150,7 @@
 	/* i-simle-tips */
 	.i-simple-tips, .float-tips {
 		position: absolute;
-		min-width: 100px;
-		max-width:150px;
+		width:150px;
 		white-space:nowrap;
 		background:#000;
 		font-size:12px;
