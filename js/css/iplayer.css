@@ -171,6 +171,7 @@
 	.i-simple-tips .i-dialog-arrow, .float-tips em.arrow {
 		position: absolute;
 		height:12px;
+		line-height: 12px;
 		width:12px;
 		padding:0px;
 		bottom: -6px;
@@ -218,6 +219,7 @@
 		position: absolute;
 		height:12px;
 		width:12px;
+		line-height: 12px;
 		padding:0px;
 		bottom: -6px;
 		left:20px;
