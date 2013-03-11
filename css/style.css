@@ -1,7 +1,7 @@
 	body, div, ul, li{margin:0px;padding:0px;}
 
 	body{
-		background: url(../images/bg_tile.jpg) repeat;
+		background: url(../images/bg_tile.jpg) repeat fixed;
 	}
 
 	.header-wrap {
@@ -9,6 +9,10 @@
 		background:#f3f3f3;
 		height:20px;
 		padding:20px;
+	}
+
+	.footer {
+		height:100px;
 	}
 	.logo {
 		float: left;
@@ -85,6 +89,13 @@
 		float: none;
 	}
 
+	.cat-demo {
+		background: #fff;
+		margin-bottom:10px;
+		padding:10px;
+		height:600px;
+	}
+
 
 
 	#phototype {
@@ -117,4 +128,30 @@
 	.mobile-tag {
 		margin: 0 auto;
 		margin-top:10px;
+	}
+
+
+	.nav-sider {
+		position: fixed;
+		width:40px;
+		left:-20px;
+		top:200px;
+		z-index: 999;
+	}
+
+	.nav-sider a {
+		float: left;
+		width: 100%;
+		text-align: center;
+		padding:2px 10px;
+		margin-bottom: 6px;
+		background:#ffcc66;
+		color:#fff;
+		font-size:12px;
+		-webkit-transform:rotate(40deg); 
+		border-radius:1px 2px 2px 2px;
+	}
+
+	.nav-sider a.cur {
+		background: #76c21f;
 	}
