@@ -1,0 +1,205 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<!--<meta name="format-detection" content="telephone=no">-->
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<!--<meta name="viewport" content="width=device-width; initial-scale=1.0; minimum-scale:1.0;maximum-scale:1.0;user-scalable=no" />-->
+<title>正和彩</title>
+</head>
+<body>
+<style type="text/css">
+	body ,div,ul,li,a,img{margin:0;padding:0;}
+	iframe {border:1px solid #f00;}
+	li{list-style-type: none;}
+
+
+	.header {
+		height:40px;
+		background:#666;
+	}
+
+	#editor {
+		width:320px;
+		height:500px;
+		border:1px solid #ccc;
+		overflow:hidden;
+	}
+
+	.test{
+		height:5000px;
+	}
+
+	.fixed{
+		position:absolute;
+		width:100px;
+		height:100px;
+		top:400px;
+		background:#fff;
+		border:2px solid #f00;
+
+	}
+	#photo {
+		background:#eee;
+	}
+
+	#photo img{
+		width:320px;
+		height:200px;
+	}
+	
+	#photo{
+		position:relative;
+		width:320px;
+		height:200px;
+		overflow:hidden;
+	}
+	
+	#photo ul{
+		display:inline-block;
+	}
+	
+	ul.photo-list li {
+		float:left;
+		width:320px;
+		height:200px;
+	}
+
+	ul.photo-control {
+		position:absolute;
+		z-index:99;
+		left:110px;
+		bottom:20px;
+		width:100px;
+		height:15px;
+	}
+	ul.photo-control li{
+		float:left;
+		width:15px;
+		height:15px;
+		background:#ccc;
+		border-radius:7px;
+		margin-right:10px;
+	}
+
+	ul.photo-control li.Cur {
+		background:#fc0;
+	}
+
+	.i-btn{
+		display:inline-block;
+		padding:0 5px;
+		height:20px;
+		line-height:20px;
+		background:#eee;
+	}
+
+	.cantainer{
+		display:inline-block;
+	}
+	.cantainer ul {
+		float:left;
+		margin-bottom:5px;
+	}
+	.cantainer  li{	
+		float:left;
+		font-family: arial;
+		width:35px;
+		height:35px;
+		border:2px solid #0066ff;
+		margin-right:5px;
+		color:#999;
+		text-align: center;
+		line-height: 35px;
+		vertical-align: center;
+	}
+	.cantainer li:last-child{
+		border:2px solid #ff4e6f;
+	}
+
+	.i-button{
+		float:left;
+		margin: 0px;
+		clear: both;
+		text-decoration: none;
+		color:#fff;
+		background: #00ccff;
+		border-radius: 3px;
+		padding:5px;
+	}
+
+</style>
+<div class="cantainer" id="ticket">
+
+</div>
+<script type="text/javascript">
+	;var Ticket = (function(){
+
+		function Random(m,n){
+			return Math.floor(Math.random()*( n - m + 1 ) + m);
+		}
+
+		function Ticket(param){
+			this.log = [];
+			this.viewer = document.getElementById(param.id) || false;
+			
+			this.init();
+		}
+
+		Ticket.prototype =  {
+			'init':function(){
+				this.nplus(6)
+				this.view();
+				this.bind();
+			},
+			'bind':function(){
+				var self = this;
+				this.viewer.getElementsByTagName('a')[0].addEventListener('click',function(e){ 
+					self.init();
+				},false);
+			},
+			'nplus':function(n){
+				var arr = [];
+				for(var i = 0; i <= n ;i++){
+					arr.push(Random(0,9));
+				}
+				this.log.push(arr);
+				return arr;
+			},
+			'view':function(){
+				var list = '';
+				for(var i = 0; i < this.log[this.log.length -1 ].length; i++){
+					list += '<li>' + this.log[this.log.length -1 ][i] + '</li>';
+	 			}
+	 			list = '<ul>' + list + '</ul><a href="javascript:;" class="i-button">生成彩号</a>';
+	 			this.viewer.innerHTML = list;
+			},
+			'getlog':function(){
+				return this.log;
+			}
+		
+		};
+
+		return {
+			init : function(param){
+				return new Ticket(param);
+			}
+		}
+
+	}());
+
+var ticket = Ticket.init({'id':'ticket'});
+
+/*
+
+	var ticket = Ticket('ticket');
+
+	var results = ticket.nplus(6);
+	results = ticket.nplus(6);
+	results = ticket.nplus(6);
+	ticket.view();
+*/
+</script>
+</body>
+</html>
