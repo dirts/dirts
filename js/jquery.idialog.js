@@ -45,11 +45,8 @@
 			
 			targets = targets ? targets[0] : $this[0];
 			if(e){
-				
 				var targetsx = e.clientX;
-				
 				Rects = targets.getClientRects();
-
 				for(var i = 0, len = Rects.length, index = 0 ; i < len ; i++ ){
 					if(( Rects[i].left < targetsx ) && ( targetsx  < Rects[i].right )) index = i;
 				}
@@ -161,6 +158,8 @@
 		var defaults = {};
 		var opts = $.extend(defaults, settings);
 
+		var timer = null;
+
 		this.each(function() {
 			
 			var $this = $(this);
@@ -169,12 +168,15 @@
 			$this.data({'card': $card });
 
 			$this.bind('mouseenter',function(e){
-				$card.show().align($this,e);
+				timer = setTimeout(function(){
+					$card.show().align($this,e);
+				},200)
 			});
 
 			$this.bind('mouseleave',function(){
+				clearTimeout(timer);
 				$card.close();
-			})
+			});
 			
 		});
 
