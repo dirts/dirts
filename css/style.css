@@ -98,18 +98,25 @@
 
 
 	#phototype {
-		width:100%;
+		margin:0 auto;
+		width:350px;
 		height:190px;
 	}
 
 	#phototype ul.viewer {
 		height:190px;
 	}
+
+	ul.viewer li{
+		float:left;
+	}
 	#phototype ul.ctrllor {
 		margin:0 auto;
 		margin-top: 160px;
 		width:50px;
 		bottom:10px;
+		position: relative;
+		z-index:99;
 	}
 	#phototype ul.ctrllor li{
 		float: left;
