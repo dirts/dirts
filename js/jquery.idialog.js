@@ -1,12 +1,9 @@
 
 ;(function($, win) {
 
-	if($.icard) {
-		return;
-	}
+	if($.icard) return false;
 
 	var $win = $(win), $body = $('body');
-
 
 	$.icard = function(settings) {
 
@@ -14,6 +11,7 @@
 			'align':null,
 			'title': '标题',
 			'content': '内容',
+			'width':150,
 			'mask': true,
 			'drag': false
 		}
@@ -29,7 +27,7 @@
 			'</div>'
 			].join('');
 
-		var $this = $(html)//.attr('style', 'background:#fff;border:1px solid #ccc;position:absolute;width:200px;height100px;z-index:999999');
+		var $this = $(html).css({'width':opts.width});//.attr('style', 'background:#fff;border:1px solid #ccc;position:absolute;width:200px;height100px;z-index:999999');
 
 		var $arrow = $this.find('.i-dialog-arrow');
 
@@ -57,20 +55,14 @@
 			}
 		}
 
-
-		//对齐大概有几种对齐：
-		//1.左右垂直居中对齐
-		//2.对齐某个元素
+		// align : tips.
 		$this.align = function($targets,e) {
 
 			//$this is $tips
 			if(!$this.is(':visible')) return;
 	
 			var $tipRect = $this.getRects();
-
-			var width = $tipRect.right - $tipRect.left,
-				height = $tipRect.bottom - $tipRect.top;
-
+			var width = $tipRect.right - $tipRect.left, height = $tipRect.bottom - $tipRect.top;
 			var viewport = {
 				'height' : $win.height(),
 				'width' : $win.width()
@@ -83,13 +75,19 @@
 
 				$targetRects = $this.getRects($targets,e);
 
-				var $arrow_pos_left = parseInt( $arrow.position().left + $arrow.width()/2 );
+				//var $arrow_pos_left = parseInt( $arrow.position().left + $arrow.width()/2 );
+				var $arrow_pos_left = parseInt( (width - $arrow.width()) / 2 );
 
-				offset.left = $targetRects.left + parseInt(($targetRects.right - $targetRects.left)/2) - $arrow_pos_left;
+				$arrow.css({'left':$arrow_pos_left});
+				offset.left = $targetRects.left + parseInt(($targetRects.right - $targetRects.left - width) / 2);
 
 				if(offset.left + width > viewport.width){
 					offset.left = viewport.width - width;
 					$arrow.css({'left':$targetRects.left + parseInt(($targetRects.right - $targetRects.left)/2) - offset.left - $arrow.width() / 2});
+				}
+				if(offset.left < 0){
+					offset.left = 0;
+					$arrow.css({'left':$targetRects.left + parseInt(($targetRects.right - $targetRects.left - $arrow.width()) / 2 ) });
 				}
 
 				if((viewport.height - $targetRects.bottom) >= $targetRects.top){
@@ -131,31 +129,19 @@
 
 		return $this;
 
-		/*
-		if(opts.align){
-			$this.align(opts.align);
-		}else{
-			$this.align();
-		}
-		*/
-		return $this;
 	}
 
 
 }(jQuery, window));
 
-
-
 ;(function($){
 
-	if($.fn.icard) {
-		return;
-	}
+	if($.fn.icard) 	return false;
 
 	$.fn.icard = function(settings) {
 	
 		var $this = this;
-		var defaults = {};
+		var defaults = { 'type' : 'mouserover'};
 		var opts = $.extend(defaults, settings);
 
 		var timer = null;
@@ -166,17 +152,23 @@
 			var $card = $.icard(opts);
 
 			$this.data({'card': $card });
+				
+			if(opts.type == 'click'){
+				$this.bind('click',function(e){
+					$card.show().align();
+				});
+			}else{ 
+				$this.bind('mouseenter',function(e){
+					timer = setTimeout(function(){
+						$card.show().align($this,e);
+					},200)
+				});
 
-			$this.bind('mouseenter',function(e){
-				timer = setTimeout(function(){
-					$card.show().align($this,e);
-				},200)
-			});
-
-			$this.bind('mouseleave',function(){
-				clearTimeout(timer);
-				$card.close();
-			});
+				$this.bind('mouseleave',function(){
+					clearTimeout(timer);
+					$card.close();
+				});
+			}
 			
 		});
 

@@ -150,8 +150,6 @@
 	/* i-simle-tips */
 	.i-simple-tips, .float-tips {
 		position: absolute;
-		width:150px;
-		white-space:nowrap;
 		background:#000;
 		font-size:12px;
 		opacity: .7;
@@ -161,7 +159,7 @@
 		right:10px;
 		top:144px;
 		left:624px;
-		z-index:10;
+		z-index:999999;
 	}
 
 

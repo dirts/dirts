@@ -1,4 +1,4 @@
-/* lishouyan@me.com dirt-lift.net */
+/* @lishouyan site:www.dirt-life.net */
 
 .i-dialog {
 	position:absolute;
@@ -8,4 +8,28 @@
 	border:3px solid #ccc;
 	border-radius:3px;
 	z-index:999999
+}
+
+.i-dialog .i-dialog-arrow{
+	display:none;
+}
+
+.i-dialog .i-dialog-title{
+	width:100%;
+	display:inline-block;
+	height:21px;
+	line-height:21px;
+	background:#fafafa;
+}
+
+.i-dialog .i-dialog-title span {
+	float:left;
+}
+
+.i-dialog .i-dialog-close{
+	float:right;
+}
+
+.i-dialog .i-dialog-content {
+	padding:5px;
 }
