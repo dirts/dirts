@@ -11,7 +11,6 @@
 			'align':null,
 			'title': '标题',
 			'content': '内容',
-			'width':150,
 			'mask': true,
 			'drag': false
 		}
@@ -27,8 +26,10 @@
 			'</div>'
 			].join('');
 
-		var $this = $(html).css({'width':opts.width});//.attr('style', 'background:#fff;border:1px solid #ccc;position:absolute;width:200px;height100px;z-index:999999');
-
+		var $this = $(html)
+        if(opts.width){
+          $this.css({'width':opts.width});//.attr('style', 'background:#fff;border:1px solid #ccc;position:absolute;width:200px;height100px;z-index:999999');
+        }
 		var $arrow = $this.find('.i-dialog-arrow');
 
 		//method : content
